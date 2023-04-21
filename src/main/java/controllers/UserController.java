@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import components.UserData;
 import services.UserDataService;
+import services.UserDataServiceImpl;
 //import components.UserServiceImpl;
 
 @Controller
@@ -23,9 +24,8 @@ public class UserController {
 	{
 		UserData wiktor = new UserData(11,"istachuui@wp.pl","Wiktor","koniec");
 		UserData andrzej = new UserData(12,"esssa@wp.pl","andrzej","dzisiaj");
-//		UserDataService userDataService = new UserDataService();
-//		userDataService.addUser(andrzej);
-//		userDataService.addUser(wiktor);
+		userDataService.addUser(andrzej);
+		userDataService.addUser(wiktor);
 		userDataService.deleteUser(6);
 		userDataService.updateUser(7);
 		m.addAttribute("users", userDataService.getAllUsers());

@@ -1,6 +1,9 @@
 package components;
+import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -30,11 +35,21 @@ public class UserData {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id=2;
+	@Size(min=1, max = 7,message = "Id must be between {min} and {max} characters long")
+	@NotBlank(message = "Id is required")
+	private long id;
+	
 	@Column(name="email")
-	private String email="component@wp.pl";
+	@NotEmpty(message = "Email is required")
+	private String email;
+	
+	@Size(min=2, max = 30,message = "The user name must be between {min} and {max} characters long")
+	@NotBlank(message = "User Name is required")
 	@Column(name="userName")
-	private String userName="Lena";
+	private String userName;
+	
 	@Column(name="password")
-	private String password="Lampka";
+	@Size(min=2, max = 30,message = "The password must be between {min} and {max} characters long")
+	@NotBlank(message = "Password is required")
+	private String password;
 }
