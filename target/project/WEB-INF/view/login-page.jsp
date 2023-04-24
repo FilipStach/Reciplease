@@ -9,35 +9,39 @@
 
 <title>Homepage</title>
 <style type="text/css">
+.error {
+	color: red;
+	position: fixed;
+	text-align: left;
+	margin-left: 30px;
+}
 
 </style>
 </head>
-<body>
+<body></body>
 
-	<h1 align="center">Welcome to RECIPLEASE</h1>
+	<h1 align="center">Welcome to Reciplease</h1>
 <hr/>
-<form:form action ="process-login-page" method="post" modelAttribute="UserInfo">
+<form:form action ="process-homepage" method="post" modelAttribute="loginData">
 <div align="center">
+${wrongData}
 <p>
-	<label for="yn">Email:</label>
-    <form:input id="yn" path="email"/>
+	<label >Email: </label>
+    <form:input  path="email"/>
     <form:errors path="email" cssClass="error"/>
 </p>
+
 <p>
-	<label for="cn">Password:</label>
-    <form:password id="cn" path="password"/>
+	<label >Password:</label>
+    <form:password path="password"/>
     <form:errors path = "password" cssClass="error"/>
 </p>
-
 <input type="submit" value = "Login">
-<br/>
-<br/>
-<tr>
-        <font color="red"><td colspan="2" >${errors}</td>
-</tr>
 </div>
 </form:form>
 
+<a href="/project/registration"> Register </a>
+<br><br>
 
 </body> 
 </html>

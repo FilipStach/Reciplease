@@ -3,7 +3,6 @@ package appConfiguration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import appConfiguration.RcWebMvcConfigurer;
 
 public class RcDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 

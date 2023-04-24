@@ -40,5 +40,9 @@ public class UserDataServiceImpl implements UserDataService {
 	public UserData getByEmail(String email){
 		return this.userDataDao.getByEmail(email);
 	}
+	@Transactional
+	public UserData getByUserName(String userName) {
+		return this.userDataDao.getByUserName(userName);
+	}
 	
 }

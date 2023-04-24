@@ -13,4 +13,6 @@ public interface UserDataDao {
 	public void updateUser(long id);
 	
 	public UserData getByEmail(String email);
+	
+	public UserData getByUserName(String userName);
 }

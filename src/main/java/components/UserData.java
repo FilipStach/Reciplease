@@ -35,17 +35,14 @@ public class UserData {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Size(min=1, max = 7,message = "Id must be between {min} and {max} characters long")
-	@NotBlank(message = "Id is required")
 	private long id;
 	
 	@Column(name="email")
 	@NotEmpty(message = "Email is required")
 	private String email;
 	
-	@Size(min=2, max = 30,message = "The user name must be between {min} and {max} characters long")
-	@NotBlank(message = "User Name is required")
-	@Column(name="userName")
+	@Size(min=2, max = 30,message = "The User name must be between {min} and {max} characters long")
+	@NotBlank(message = "Username is required")
 	private String userName;
 	
 	@Column(name="password")

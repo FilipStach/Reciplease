@@ -20,33 +20,8 @@
 </head>
 <body>
 
-	<h1 align="center">Love Calculator</h1>
+	<h1 align="center">Hi ${userName}</h1>
 <hr/>
-<form:form action ="process-homepage" method="post" modelAttribute="userInfo">
-<div align="center">
-<p>
-	<label for="yn">Your name:</label>
-    <form:input id="yn" path="userName"/>
-    <form:errors path="userName" cssClass="error"/>
-</p>
 
-<p>
-	<label for="cn">Crush name:</label>
-    <form:password id="cn" path="crushName"/>
-    <form:errors path = "crushName" cssClass="error"/>
-</p>
-<input type="submit" value = "calculate">
-<p>
-	<form:checkbox path="termAndCondition" id = "check"/>
-	<label>I agree that this if for fun</label>
-	<form:errors path = "termAndCondition" cssClass="error"/>
-</p>
-</div>
-</form:form>
-
-<a href="/spring-love-calc/register" > Register </a>
-<br><br>
-
-User Name: ${userRegistrationInfo.userName}
 </body> 
 </html>

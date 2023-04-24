@@ -74,9 +74,33 @@ public class UserDataDaoImpl implements UserDataDao {
             List <UserData> output = session.createQuery("from UserData", UserData.class).list();
         	for(UserData user : output) {
     			if(user.getEmail().equals(email) ) {
+    				session.close();
     				return user;
     			}
     		}
+        	session.close();
+        	return null;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    	return null;
+    }
+    public UserData getByUserName(String userName) {
+    	org.hibernate.Transaction transaction = null;
+        try (Session session = this.sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            List <UserData> output = session.createQuery("from UserData", UserData.class).list();
+        	for(UserData user : output) {
+    			if(user.getUserName().equals(userName) ) {
+    				session.close();
+    				return user;
+    			}
+    		}
+        	session.close();
+        	return null;
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
