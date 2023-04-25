@@ -21,17 +21,14 @@ public class UserDataDaoImpl implements UserDataDao {
 		private SessionFactory sessionFactory;
 
 	public void addUser(UserData user) {
-		System.out.println("Starting adding");
-	Session currentSession = sessionFactory.getCurrentSession();
-	org.hibernate.Transaction transaction = currentSession.beginTransaction();
-	System.out.println(user.getEmail());
-	currentSession.save(user);
-	transaction.commit();
+		Session currentSession = sessionFactory.getCurrentSession();
+		org.hibernate.Transaction transaction = currentSession.beginTransaction();
+		currentSession.save(user);
+		transaction.commit();
 	}
     public List < UserData > getAllUsers() {
         try (Session session = this.sessionFactory.openSession()) {
         	List <UserData> output = session.createQuery("from UserData", UserData.class).list();
-        	System.out.println(output.size());
             return output;
         }
     }

@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 
+import components.Category;
 import components.Recipe;
 import components.UserData;
 
@@ -11,9 +12,11 @@ public interface RecipeDao {
 	
 	public List < Recipe > getAllRecipes();
 	
+	public List < Recipe > getbyCategory(Category category);
+	
 	public void deleteRecipe(long id);
 	
-	public UserData getById(long id);
+	public Recipe getById(long id);
 	
-	public UserData getByName(String name);
+	public Recipe getByName(String name);
 }

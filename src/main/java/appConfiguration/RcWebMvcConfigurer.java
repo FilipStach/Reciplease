@@ -1,6 +1,7 @@
 package appConfiguration;
 
 import java.beans.PropertyVetoException;
+import java.util.Comparator;
 import java.util.Properties;
 //
 import org.hibernate.SessionFactory;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import components.Recipe;
 import components.UserData;
 
 
@@ -27,7 +29,8 @@ import components.UserData;
     @ComponentScan("components"),
     @ComponentScan("controllers"),
     @ComponentScan("dao"),
-    @ComponentScan("services")
+    @ComponentScan("services"),
+    @ComponentScan("comperators")
 })
 @EnableWebMvc
 @Configuration
@@ -56,7 +59,7 @@ public class RcWebMvcConfigurer implements WebMvcConfigurer {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(myDataSource());
         sessionFactory.setPackagesToScan("components");
-        sessionFactory.setAnnotatedClasses(UserData.class);
+        sessionFactory.setAnnotatedClasses(UserData.class, Recipe.class);
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }
@@ -72,13 +75,13 @@ public class RcWebMvcConfigurer implements WebMvcConfigurer {
     @Bean
     public Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+        hibernateProperties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.put(Environment.SHOW_SQL, "true");
         hibernateProperties.put(Environment.HBM2DDL_AUTO, "update"); 
         hibernateProperties.put("hibernate.current_session_context_class", "thread");
         return hibernateProperties;
     }
-
+  
 
 }
