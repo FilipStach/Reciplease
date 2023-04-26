@@ -28,24 +28,13 @@ error {
 
 	<h1 align="center">Hi ${userName}</h1>
 <hr/>
-<p>Sort by:</p>
-<ul>
-
-
-<form:form action="update-model" method="post" modelAttribute="model">
-  <form:hidden path="sort" />
-  <form:button value="Set Value in Model" onclick="setValue('name')" />
-</form:form>
-
-</ul>
+ 
 <script>
-function setSorting(sortingType) {
-  var input = document.getElementsByName("model.sort")[0];
-  input.value = sortingType;
-  var form = document.getElementById("model");
-  form.submit();
-}
+      function setSorting(sortType) {
+        window.location.href = '/project/process-homepage?sort=' + sortType;
+      }
 </script>
+
 <table align="center">
 		<tr>
 			<td>ID</td><td>CATEGORY</td><td>NAME</td><td>TIME</td><td>INGREDIENTS</td><td>CALORIES</td><td>PORTIONS</td>
@@ -62,5 +51,19 @@ function setSorting(sortingType) {
 			</tr>
 		</c:forEach>
 	</table>
+	</br>
+	<div style="text-align: center;">
+	  <fieldset style="width: 600px;margin: 0 auto;">
+		  <legend>Sort by:</legend>
+		    <button onclick="setSorting('name')">NAME</button>
+	  		<button onclick="setSorting('time')">TIME</button>
+	  		<button onclick="setSorting('ingredients')">INGREDIENTS</button>
+	  		<button onclick="setSorting('calories')">CALORIES</button>
+	  		<button onclick="setSorting('portions')">PORTIONS</button>
+	  		<button onclick="setSorting('category')">CATEGORY</button>
+	  </fieldset>
+	  </br>
+	  <button onclick="window.location.href = '/project/user-recipes';">Go to your recipes</button>
+  	  </div>
 </body> 
 </html>

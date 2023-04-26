@@ -30,7 +30,6 @@ import components.UserData;
     @ComponentScan("controllers"),
     @ComponentScan("dao"),
     @ComponentScan("services"),
-    @ComponentScan("comperators")
 })
 @EnableWebMvc
 @Configuration

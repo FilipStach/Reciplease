@@ -12,16 +12,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import comperators.ComperatorByName;
 import components.Category;
 import components.LoginData;
 import components.Recipe;
+import components.RecipeComparator;
 import components.UserData;
-import components.UserInfoDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -39,45 +40,40 @@ public class LoginController {
 	RecipeService recipeService;
 	
 	@Autowired
-	ComperatorByName comperatorByName;
+	RecipeComparator recipeComparator;
+
+
 	
 	@RequestMapping("/")
 	public String showHomepage(Model model) {
 		model.addAttribute("loginData", new LoginData());
-//		Recipe recipe = new Recipe("Pizza",Category.DINNER,2, 2, 800, 8);
-//		recipeService.addRecipe(recipe);
-//		recipe = new Recipe("Pancakes",Category.DESSERT,1, 4, 500, 5);
-//		recipeService.addRecipe(recipe);
-//		recipe = new Recipe("Pasta",Category.DINNER,0.8, 2, 600, 4);
-//		recipeService.addRecipe(recipe);
-//		recipe = new Recipe("Toasts",Category.SUPPER,0.2, 1, 300, 3);
-//		recipeService.addRecipe(recipe);
-//		recipe = new Recipe("Smashed eggs",Category.BREAKFAST,0.2, 4, 350, 6);
-//		recipeService.addRecipe(recipe);
-		List<Recipe> recipes = recipeService.getAllRecipes();
-		System.out.println(recipes.get(0).getCategory()); 
+		model.addAttribute("sort", "");
+//		recipeService.addRecipe( new Recipe("Toasts",Category.LUNCH,0.1,1,350,3,1));
+//		recipeService.addRecipe( new Recipe("Pizza",Category.DINNER,2.5,2,800,9,1));
+//		recipeService.addRecipe( new Recipe("Pancakes",Category.DESSERT,0.8,3,600,7,1));
+//		recipeService.addRecipe( new Recipe("Sandwiches",Category.SUPPER,0.7,4,600,6,1));
+//		recipeService.addRecipe( new Recipe("Hot dog",Category.DINNER,0.3,4,400,4,2));
 		return "login-page";
 	}
 	
-	@PostMapping("/process-homepage")
-	public String showResultPage(@Valid @ModelAttribute("loginData") LoginData loginData, BindingResult result, Model model, HttpServletRequest request,@RequestParam(name = "sort", defaultValue = "") String sort) {
+	@RequestMapping(value = "/process-homepage")
+	public String showResultPage(@Valid @ModelAttribute("loginData") LoginData loginData, BindingResult result,
+			Model model, HttpServletRequest request, @ModelAttribute("sort") String sort) {
 		if(result.hasErrors()) {
 			return "login-page";
 		}
+		System.out.println("Messsage is:" + sort);
 		UserData user = userDataService.getByEmail(loginData.getEmail());
 		if(user != null && user.getPassword().equals(loginData.getPassword())) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userData", user);
 			session.setAttribute("userName", user.getUserName());
+			session.setAttribute("loginData", loginData);
 			List<Recipe> recipes = recipeService.getAllRecipes();
-//			sort = "name";
-			if(sort.equals("name")) {
-				Collections.sort(recipes, comperatorByName);
+			if(!sort.equals("")) {
+				recipeComparator.setType(sort);
+				Collections.sort(recipes, recipeComparator);
 			}
-//			else if(sort.equals("calories")) {
-//				
-//			}
-			
 			model.addAttribute("recipes", recipes);
 			return "home-page1";
 		}

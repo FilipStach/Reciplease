@@ -30,12 +30,14 @@ import lombok.ToString;
 @Entity
 @Table(name="trailTable2")
 @Component
-public class Recipe implements Comparable<Recipe> {
+public class Recipe {
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
+	private long userId;
 	
 	@Enumerated(EnumType.STRING)
 	@NotBlank(message = "Cooking time is required")
@@ -65,7 +67,7 @@ public class Recipe implements Comparable<Recipe> {
 	@NotBlank(message = "Quantity of ingredients are required")
 	private int ingredientsQuantity;
 	
-	public Recipe(String name, Category category,double time,int portion,double calories,int ingredientsQuantity)
+	public Recipe(String name, Category category,double time,int portion,double calories,int ingredientsQuantity, long userId)
 	{
 		this.name = name;
 		this.category = category;
@@ -73,9 +75,6 @@ public class Recipe implements Comparable<Recipe> {
 		this.portion = portion;
 		this.calories = calories;
 		this.ingredientsQuantity = ingredientsQuantity;
-	}
-	@Override
-	public int compareTo(Recipe e) {
-		return this.getName().compareTo(e.getName());
+		this.userId = userId;
 	}
 }

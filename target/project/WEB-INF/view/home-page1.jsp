@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -28,26 +28,13 @@ error {
 
 	<h1 align="center">Hi ${userName}</h1>
 <hr/>
-<p>Sort by:</p>
-<ul>
-<button onClick="window.location.reload();">Refresh Page</button>
-<button onClick="setValue()">Sort by Name</button>
-</br>
-<form:form action="update-model" method="post" modelAttribute="model">
-  <form:hidden path="sort" />
-  <form:button value="Set Value in Model" onclick="setValue('name')" />
-</form:form>
-    <li><a href="?sort=name">Name</a></li>
-    <li><a href="?sort=calories">Calories</a></li>
-</ul>
+ 
 <script>
-function setSorting(sortingType) {
-  var input = document.getElementsByName("model.sort")[0];
-  input.value = sortingType;
-  var form = document.getElementById("model");
-  form.submit();
-}
+      function setSorting(sortType) {
+        window.location.href = '/project/process-homepage?sort=' + sortType;
+      }
 </script>
+
 <table align="center">
 		<tr>
 			<td>ID</td><td>CATEGORY</td><td>NAME</td><td>TIME</td><td>INGREDIENTS</td><td>CALORIES</td><td>PORTIONS</td>
@@ -64,5 +51,19 @@ function setSorting(sortingType) {
 			</tr>
 		</c:forEach>
 	</table>
+	</br>
+	<div style="text-align: center;">
+	  <fieldset style="width: 600px;margin: 0 auto;">
+		  <legend>Sort by:</legend>
+		    <button onclick="setSorting('name')">NAME</button>
+	  		<button onclick="setSorting('time')">TIME</button>
+	  		<button onclick="setSorting('ingredients')">INGREDIENTS</button>
+	  		<button onclick="setSorting('calories')">CALORIES</button>
+	  		<button onclick="setSorting('portions')">PORTIONS</button>
+	  		<button onclick="setSorting('category')">CATEGORY</button>
+	  </fieldset>
+	  </br>
+	  <button onclick="window.location.href = '/project/user-recipes';">Go to your recipes</button>
+  	  </div>
 </body> 
 </html>
