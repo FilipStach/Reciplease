@@ -55,33 +55,43 @@ public class LoginController {
 //		recipeService.addRecipe( new Recipe("Hot dog",Category.DINNER,0.3,4,400,4,2));
 		return "login-page";
 	}
-	
+
 	@RequestMapping(value = "/process-homepage")
 	public String showResultPage(@Valid @ModelAttribute("loginData") LoginData loginData, BindingResult result,
-			Model model, HttpServletRequest request, @ModelAttribute("sort") String sort) {
+			Model model, HttpServletRequest request) {
 		if(result.hasErrors()) {
 			return "login-page";
 		}
-		System.out.println("Messsage is:" + sort);
 		UserData user = userDataService.getByEmail(loginData.getEmail());
 		if(user != null && user.getPassword().equals(loginData.getPassword())) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userData", user);
 			session.setAttribute("userName", user.getUserName());
 			session.setAttribute("loginData", loginData);
-			List<Recipe> recipes = recipeService.getAllRecipes();
-			if(!sort.equals("")) {
-				recipeComparator.setType(sort);
-				Collections.sort(recipes, recipeComparator);
-			}
-			model.addAttribute("recipes", recipes);
-			return "home-page1";
+			return "redirect:/home";
 		}
 		else {	
 			model.addAttribute("wrongData", "Wrong email or password");
 			return "login-page";
 		}
 		
+	
+	}
+	@RequestMapping(value = "/home")
+	public String showResultPage(Model model, HttpSession session, @ModelAttribute("sort") String sort) {
+
+		if(session.getAttribute("loginData")!=null) {
+		List<Recipe> recipes = recipeService.getAllRecipes();
+		if(!sort.equals("")) {
+			recipeComparator.setType(sort);
+			Collections.sort(recipes, recipeComparator);
+		}
+		session.setAttribute("recipes", recipes);
+		return "home-page1";
+		}
+		else {
+			return "redirect:/";
+		}
 	
 	}
 }

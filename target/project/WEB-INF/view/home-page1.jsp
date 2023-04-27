@@ -31,7 +31,7 @@ error {
  
 <script>
       function setSorting(sortType) {
-        window.location.href = '/project/process-homepage?sort=' + sortType;
+        window.location.href = '/project/home?sort=' + sortType;
       }
 </script>
 
