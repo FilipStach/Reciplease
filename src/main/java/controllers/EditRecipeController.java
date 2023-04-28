@@ -25,16 +25,19 @@ public class EditRecipeController {
 	
 	@RequestMapping("/edit-recipes") 
 	public String showAddingPage(Model model, HttpSession session) {
-		if(model.getAttribute("id") == null) {
-			model.addAttribute("recipe", new Recipe());
-			model.addAttribute("id",0);
+//		if(model.getAttribute("id") == null) {
+		Recipe recipe = (Recipe)session.getAttribute("recipe");
+		Recipe recipe1 = recipeService.getById(recipe.getId());
+		System.out.println("Second recipe id"+ recipe.getId());
+		System.out.println("Third recipe id"+ recipe1.getId());
+			model.addAttribute("recipe", recipe1);
 			model.addAttribute("category","");
-		}
-		else if((int)model.getAttribute("id")!=0) {
-			System.out.println("id" + (int)model.getAttribute("id"));
-			Recipe recipe = recipeService.getById((int)model.getAttribute("id"));
-			model.addAttribute("recipe",recipe);
-		}
+//		}
+//		else if((int)model.getAttribute("id")!=0) {
+//			System.out.println("id" + (int)model.getAttribute("id"));
+//			Recipe recipe = recipeService.getById((int)model.getAttribute("id"));
+//			model.addAttribute("recipe",recipe);
+//		}
 		return "edit-recipe";
 	}
 	
@@ -45,8 +48,16 @@ public class EditRecipeController {
 		}
 		UserData user = (UserData)session.getAttribute("userData");
 		recipe.setUserId(user.getId());
-		recipe.setCategory(Category.BREAKFAST);
-		recipeService.addRecipe(recipe);
+		Recipe recipeToUpdate = recipeService.getById(recipe.getId());
+		recipeToUpdate.setName(recipe.getName());
+		recipeToUpdate.setTime(recipe.getTime());
+		recipeToUpdate.setPortion(recipe.getPortion());
+		recipeToUpdate.setCalories(recipe.getCalories());
+		recipeToUpdate.setIngredientsQuantity(recipe.getIngredientsQuantity());
+		System.out.println("Recipe to update id" +recipeToUpdate.getId());
+		System.out.println("Recipe id" +recipe.getId());
+		recipeService.updateRecipe(recipeToUpdate);
 		return "home-page1";
 	}
+	
 }

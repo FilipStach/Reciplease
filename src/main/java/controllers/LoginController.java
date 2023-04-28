@@ -31,7 +31,6 @@ import services.UserDataService;
 
 @Controller
 @Validated
-@SessionAttributes({"loginData"})
 public class LoginController {
 	@Autowired
 	UserDataService userDataService;

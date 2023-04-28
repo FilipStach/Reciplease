@@ -39,8 +39,10 @@ ${wrongData}
 <input type="submit" value = "Login">
 </div>
 </form:form>
-
-<a href="/project/registration"> Register </a>
+<br>
+<div align="center">
+	<button onclick="window.location.href = '/project/registration';">Register</button>
+</div>
 <br><br>
 
 </body> 

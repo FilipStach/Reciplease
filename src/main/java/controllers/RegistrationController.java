@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import components.LoginData;
 import components.UserData;
-import components.UserInfoDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -24,7 +23,6 @@ import services.UserDataService;
 
 @Controller
 @Validated
-@SessionAttributes({"loginData"})
 public class RegistrationController {
 	@Autowired
 	UserDataService userDataService;
@@ -50,7 +48,7 @@ public class RegistrationController {
 			session.setAttribute("userData", userData);
 			session.setAttribute("userName", userData.getUserName());
 			userDataService.addUser(userData);
-			return "login-page";
+			return "redirect:/";
 		}
 		
 	}

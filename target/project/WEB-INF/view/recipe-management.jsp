@@ -54,8 +54,20 @@
 	  </fieldset>
 	  </br>
   	   <button onclick="window.location.href = '/project/add-recipe';">Add new recipe</button>
-	   <button onclick="window.location.href = '/project/edit-recipes';">Edit your recipe</button>
-	   <button onclick="window.location.href = '/project/home';">Come back to all recipes</button>
+	   <form:form action="/project/process-user-recipes" method="post" modelAttribute="recipe">
+	   </br>
+                <td><form:select path="id" title="Id">
+                    <c:forEach items="${myRecipes}" var="recipeTemp">
+						<form:option value="${recipeTemp.id}">${recipeTemp.id}</form:option>
+					</c:forEach>
+                  	</form:select></td>
+            </tr>
+            <tr>
+                <td><form:button>Edit your recipe</form:button></td>
+            </tr>
+    </form:form>
+    </br>
+    	   <button onclick="window.location.href = '/project/home';">Come back to all recipes</button>
   	  </div>
 </body>
 </html>

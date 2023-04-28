@@ -18,6 +18,9 @@ public class RecipleServiceImpl implements RecipeService {
 	public void addRecipe(Recipe recipe) {
 		recipeDao.addRecipe(recipe);
 	}
+	public void updateRecipe(Recipe recipe) {
+		recipeDao.updateRecipe(recipe);
+	}
 	
 	public List < Recipe > getAllRecipes(){
 		return recipeDao.getAllRecipes();

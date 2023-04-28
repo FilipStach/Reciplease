@@ -34,7 +34,6 @@ import components.UserData;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "controllers")
-//@EnableTransactionManagement
 public class RcWebMvcConfigurer implements WebMvcConfigurer {
 	@Bean
 	InternalResourceViewResolver viewResolver() {

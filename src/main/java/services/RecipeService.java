@@ -18,4 +18,6 @@ public interface RecipeService {
 	public Recipe getById(long id);
 	
 	public Recipe getByName(String name);
+	
+	public void updateRecipe(Recipe recipe);
 }

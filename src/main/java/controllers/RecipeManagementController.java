@@ -22,7 +22,6 @@ import services.UserDataService;
 
 @Controller
 @Validated
-@SessionAttributes({"loginData"})
 public class RecipeManagementController {
 	@Autowired
 	UserDataService userDataService;
@@ -36,6 +35,8 @@ public class RecipeManagementController {
 	@RequestMapping("/user-recipes")
 	public String showHomepage(Model model, HttpSession session,@ModelAttribute("sort") String sort) {
 		model.addAttribute("userName", session.getAttribute("userName"));
+		session.setAttribute("recipe", new Recipe());
+		model.addAttribute(session.getAttribute("recipe"));
 		List<Recipe> recipes = (List<Recipe>)session.getAttribute("recipes");
 		List<Recipe> myRecipes = new ArrayList<>();
 		UserData user = (UserData)session.getAttribute("userData");
@@ -51,6 +52,13 @@ public class RecipeManagementController {
 		}
 		session.setAttribute("myRecipes", myRecipes);
 		return "recipe-management";
+	}
+	@RequestMapping("/process-user-recipes")
+	public String processShowHomepage(@ModelAttribute("recipe") Recipe recipe, Model model, HttpSession session) {
+		System.out.println(recipe.getId());
+		session.setAttribute("recipe", recipe);
+		System.out.println("First recipe id"+ recipe.getId());
+		return "redirect:/edit-recipes";
 	}
 }
 

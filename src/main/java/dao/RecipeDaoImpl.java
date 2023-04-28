@@ -23,6 +23,13 @@ public class RecipeDaoImpl implements RecipeDao{
 		transaction.commit();
 	}
 	
+	public void updateRecipe(Recipe recipe) {
+		Session currentSession = sessionFactory.getCurrentSession();
+		org.hibernate.Transaction transaction = currentSession.beginTransaction();
+		currentSession.update(recipe);
+		transaction.commit();
+	}
+	
 	public List < Recipe > getAllRecipes(){
 		 try (Session session = this.sessionFactory.openSession()) {
 	        	List <Recipe> output = session.createQuery("from Recipe", Recipe.class).list();

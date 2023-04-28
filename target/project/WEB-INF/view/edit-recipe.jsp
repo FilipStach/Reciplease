@@ -19,57 +19,19 @@
 
 </style>
 </head>
-<body></body>
+<body>
+<input type="button" value="Pick" onclick="setRecipe()"/>
 
 	<h1 align="center">Edit your recipe</h1>
 <hr/>
-<div align="center">
- <!--  <p>
- <label>Select a recipe:</label>
-	<select name='${id}'>
+<form:form action ="/project/process-edit-recipes" method="post" modelAttribute="recipe">
 
-		<c:forEach items="${myRecipes}" var="recipe">
-			<option value=4>${recipe.id}</option>
-		</c:forEach>
-			</select>
-			
+<div align="center">
 <p>
-<form:select path = "id">
-        <c:forEach items="${myRecipes}" var="recipe">
-			<form:option value="${recipe.id}" label="${recipe.id}"/>  
-		</c:forEach>
-</form:select> 
+
+    <form:hidden path="id"/>
+    <form:errors path="id" cssClass="error"/>
 </p>
-<button onclick="setRecipe('${id}')">Pick</button>
--->
-<form:form action="/project/edit-recipe" method="post">
-			<p>
-				<label>Select a recipe:</label>
-				<form:select path="id">
-					<c:forEach items="${myRecipes}" var="recipe">
-						<form:option value="${recipe.id}">${recipe.id}</form:option>
-					</c:forEach>
-				</form:select>
-			</p>
-			<p>
-				<input type="button" value="Pick" onclick="setRecipe()"/>
-			</p>
-		</form:form>
-		<form:form action="/project/edit-recipes" method="get" id="form">
-		<input type="hidden" name="id" id="id" value=""/>
-	</form:form>
-
-</div>
-<script>
-		function setRecipe() {
-			var id = document.getElementsByName("id")[0].value;
-			document.getElementById("id").value = id;
-			document.getElementById("form").submit();
-		}
-	</script>
-<form:form action ="/project/process-add-recipe" method="post" modelAttribute="recipe">
-
-<div align="center">
 <p>
 	<label>Name: </label>
     <form:input path="name"/>
@@ -96,13 +58,9 @@
     <form:errors path="ingredientsQuantity" cssClass="error"/>
 </p>
 
-<input type="submit" value = "Add">
+<input type="submit" value = "Update">
 </div>
 </form:form>
-<script>
-      function setRecipe(id) {
-        window.location.href = '/project/edit-recipes?id=' + id;
-      }
-</script>
+
 </body> 
 </html>

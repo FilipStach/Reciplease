@@ -23,16 +23,16 @@
 
 	<h1 align="center">Add your recipe</h1>
 <hr/>
-<!--  <p>
-	<select name="category">
-	  <option value="breakfast">Breakfast</option>
-	  <option value="lunch">Lunch</option>
-	  <option value="dinner">Dinner</option>
-	</select>
-</p>-->
 <form:form action ="/project/process-add-recipe" method="post" modelAttribute="recipe">
 
 <div align="center">
+<form:select path="category" title="category">
+		<form:option value="BREAKFAST">Breakfast</form:option>
+		<form:option value="LUNCH">Lunch</form:option>
+		<form:option value="DINNER">Dinner</form:option>
+		<form:option value="SUPPER">Supper</form:option>
+		<form:option value="DESSERT">Dessert</form:option>
+</form:select>
 <p>
 	<label>Name: </label>
     <form:input path="name"/>

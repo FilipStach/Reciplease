@@ -28,9 +28,9 @@ import lombok.ToString;
 @Setter
 @Data
 @ToString
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="trailTable2")
 @Component
 public class Recipe {
 	
@@ -39,14 +39,15 @@ public class Recipe {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private long userId;
-	
-	@Enumerated(EnumType.STRING)
-	private Category category;
+
+
 	
 	@Size(min=2, max = 30,message = "Name be between {min} and {max} characters long")
 	@NotBlank(message = "Name is required")
 	private String name;
+	
+	@Enumerated(EnumType.STRING)
+	private Category category;
 	
 //	@Size(min = 1, message= "Time is required")
 	@DecimalMin(value = "0.1", message = "Time must be higher than 0.0")
@@ -67,6 +68,9 @@ public class Recipe {
 	@Max(value = 30, message = "You can't insert more than 30 ingredients")
 //	@Size(min = 1,message = "Quantity of ingredients are required")
 	private int ingredientsQuantity;
+	
+	private long userId;
+	
 	
 	public Recipe(String name, Category category,double time,int portion,double calories,int ingredientsQuantity, long userId)
 	{

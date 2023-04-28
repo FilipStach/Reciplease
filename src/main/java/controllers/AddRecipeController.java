@@ -43,8 +43,7 @@ public class AddRecipeController {
 		}
 		UserData user = (UserData)session.getAttribute("userData");
 		recipe.setUserId(user.getId());
-		recipe.setCategory(Category.BREAKFAST);
 		recipeService.addRecipe(recipe);
-		return "home-page1";
+		return "redirect:/home";
 	}
 }
